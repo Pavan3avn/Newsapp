@@ -2,7 +2,8 @@ package com.pavan.newsapp
 
 object Constants {
 
-    const val TOKEN = "aced17da56c044f488c0d9e8ea362d73"
+// i have removed the api key 
+    const val key  = ""
     const val BASEURL = "https://newsapi.org/"
     const val TIMEOUT_TIME = 20L
 }
