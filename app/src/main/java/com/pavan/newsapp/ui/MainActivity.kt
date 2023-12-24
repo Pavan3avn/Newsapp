@@ -43,12 +43,14 @@ class MainActivity : AppCompatActivity() {
                 MyResponse.Status.LOADING -> {
                     binding?.spinkitview?.visibility = View.VISIBLE
                 }
+
                 MyResponse.Status.SUCCESS -> {
                     binding?.spinkitview?.visibility = View.GONE
                     response?.data?.articleslist?.let {
                         newsapdapter.submitdata(it)
                     }
                 }
+
                 MyResponse.Status.ERROR -> {
                     binding?.spinkitview?.visibility  = View.GONE
                     Toast.makeText(this@MainActivity,response.message,Toast.LENGTH_SHORT).show()

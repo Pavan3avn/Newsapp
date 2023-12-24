@@ -14,13 +14,15 @@ class Newsrepository @Inject constructor(val apiservice: newsApiservice) {
 
     suspend fun lastnews() : Flow<MyResponse<Newsresponse>> = flow{
         emit(MyResponse.loading())
-        val response = apiservice.getallarticles("us","business",TOKEN)
+        val response = apiservice.getallarticles("de","business",TOKEN)
+
         if(response.isSuccessful){
            emit(MyResponse.success(response.body()))
         }else{
             emit(MyResponse.error("please try again later"))
         }
     }.catch {
+
         emit(MyResponse.error(it.message.toString()))
     }
 
