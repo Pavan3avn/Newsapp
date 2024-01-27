@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="130dp"
@@ -16,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
     <TextView
-        android:layout_width="0dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:id="@+id/newstitle"
         android:text="News Title"
@@ -32,7 +33,7 @@
         android:maxLines="1"
         android:ellipsize="end" />
     <TextView
-        android:layout_width="0dp"
+        android:layout_width="260dp"
         android:layout_height="match_parent"
         android:id="@+id/newsdescription"
         android:ellipsize="end"

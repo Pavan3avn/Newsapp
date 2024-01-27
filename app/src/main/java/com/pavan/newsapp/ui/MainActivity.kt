@@ -1,5 +1,6 @@
 package com.pavan.newsapp.ui
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -32,10 +33,11 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         SetupViews()
-        observenewsdata()
         viewmodel.getallnews()
+        observenewsdata()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun observenewsdata() {
         viewmodel.newsdata.observe(this@MainActivity ){response ->
             when(response.status){
@@ -48,6 +50,8 @@ class MainActivity : AppCompatActivity() {
                     binding?.spinkitview?.visibility = View.GONE
                     response?.data?.articleslist?.let {
                         newsapdapter.submitdata(it)
+                        newsapdapter.notifyDataSetChanged()
+                        Log.e("results", response.data.articleslist.toString())
                     }
                 }
 
@@ -64,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         binding?.recyclerview?.apply {
             layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.VERTICAL,false)
             adapter = newsapdapter
+            visibility = View.VISIBLE
         }
 
     }

@@ -1,5 +1,6 @@
 package com.pavan.newsapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,15 +13,15 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
 class adapter @Inject constructor(@ActivityContext private val context: Context): RecyclerView.Adapter<adapter.viewholder>() {
-    private lateinit var  binding: NewsItemBinding
+    //private lateinit var  binding: NewsItemBinding
     private var newsList = emptyList<articles>()
 
 
-    inner class viewholder:RecyclerView.ViewHolder(binding.root) {
+    inner class viewholder(private val binding: NewsItemBinding):RecyclerView.ViewHolder(binding.root) {
 
         fun setdata(data:articles){
             binding.apply {
-                newstitle.text = data.title
+                newstitle.text = ShortenString(data.title)
                 newsdescription.text = ShortenString(data.description)
                 Glide.with(context)
                     .load(data.imageUrl)
@@ -55,8 +56,8 @@ class adapter @Inject constructor(@ActivityContext private val context: Context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
-        binding = NewsItemBinding.inflate(LayoutInflater.from(context),parent,false)
-        return viewholder()
+      val binding = NewsItemBinding.inflate(LayoutInflater.from(context),parent,false)
+        return viewholder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -70,34 +71,15 @@ class adapter @Inject constructor(@ActivityContext private val context: Context)
     override fun onBindViewHolder(holder: viewholder, position: Int) {
         holder.setdata(newsList[position])
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun submitdata(data: List<articles>){
-        val newsdiffUtil = NewsDiffutils(newsList,data)
-        val diffutils = DiffUtil.calculateDiff(newsdiffUtil)
         newsList = data
-        diffutils.dispatchUpdatesTo(this)
-    }
-    class  NewsDiffutils
-        (
-        private val olditem : List<articles>,
-        private val newitem : List<articles>): DiffUtil.Callback() {
-        override fun getOldListSize(): Int {
-
-            return olditem.size
-        }
-
-        override fun getNewListSize(): Int {
-                return newitem.size
-        }
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return olditem[oldItemPosition] === newitem[newItemPosition]
-        }
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return  olditem[oldItemPosition] === newitem[newItemPosition]
-        }
-
+        notifyDataSetChanged()
 
     }
+
+
+
+
 
 }
