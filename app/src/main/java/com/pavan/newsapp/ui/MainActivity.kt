@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
         SetupViews()
         observenewsdata()
-        viewmodel.getallnotes()
+        viewmodel.getallnews()
     }
 
     private fun observenewsdata() {

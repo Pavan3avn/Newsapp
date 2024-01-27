@@ -22,7 +22,7 @@ import javax.inject.Inject
 class NewsViewmodel @Inject constructor (val newsrepository: Newsrepository) :ViewModel() {
 
     var newsdata  = MutableLiveData<MyResponse<Newsresponse>>()
-    fun getallnotes() = viewModelScope.launch{
+    fun getallnews() = viewModelScope.launch{
         newsrepository.lastnews().collect{
             newsdata.postValue(it)
 //            println("Received data: $it")
